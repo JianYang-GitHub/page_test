@@ -17,16 +17,16 @@
                     <v-container class="grey lighten-5">
                         <v-row>
                             <v-col cols="12">
-                                <v-card class="pa-2" outlined tile>
-                                    <v-img src="https://pic.imgdb.cn/item/62c2ebf95be16ec74a8bf0c2.png">
+                                <v-card class="pa-2" outlined tile @click="proxyImage(0)">
+                                    <v-img :src="images[0]">
 
                                 </v-card>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col cols="12">
-                                <v-card class="pa-2" outlined tile>
-                                    <v-img src="https://pic.imgdb.cn/item/62c2ebf95be16ec74a8bf0be.png">
+                                <v-card class="pa-2" outlined tile @click="proxyImage(1)">
+                                    <v-img :src="images[1]">
                                 </v-card>
                             </v-col>
                         </v-row>
@@ -44,6 +44,22 @@
         new Vue({
             el: '#app',
             vuetify: new Vuetify(),
+            data: { images: ['https://pic.imgdb.cn/item/62c2ebf95be16ec74a8bf0c2.png', 'https://pic.imgdb.cn/item/62c2ebf95be16ec74a8bf0be.png'] },
+            methods: {
+                proxyImage: function (index) {
+                    console.log(index)
+                    console.log(this.images[index])
+                    this.download(this.images[index], index)
+
+                },
+                download: function (link, filename) {
+                    let a = document.createElement('a')
+                    a.href = link
+                    a.download = filename || 'default.jpg'
+                    a.dispatchEvent(new MouseEvent('click'))
+                }
+
+            }
         })
     </script>
 </body>
